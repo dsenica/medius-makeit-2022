@@ -1,0 +1,36 @@
+quarkus:
+  http:
+    port: 8082
+  kafka-streams:
+    bootstrap-servers: localhost:29092
+    topics: ${stream.in-topic}
+    auto:
+      offset:
+        reset: earliest
+    enable:
+      auto:
+        commit: true
+    commit:
+      interval:
+        ms: 5000
+    metadata:
+      max:
+        age:
+          ms: 500
+kafka:
+  bootstrap:
+    servers: localhost:29092
+mp:
+  messaging:
+    outgoing:
+      invoices:
+        connector: smallrye-kafka
+        topic: invoices
+        value:
+          serializer: io.quarkus.kafka.client.serialization.ObjectMapperSerializer
+stream:
+  store-name: "depo-invoices"
+  in-topic: "invoices"
+  processor-name: "processor-invoices"
+  source-name: "source-invoices"
+

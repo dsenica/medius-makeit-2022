@@ -1,0 +1,7 @@
+quarkus:
+  http:
+    port: 8084
+  elasticsearch:
+    hosts: localhost:9200
+
+
